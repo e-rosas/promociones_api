@@ -2,71 +2,97 @@
 
 namespace App\Http\Controllers;
 
-use App\Patient;
+use App\Http\Requests\StorePatient;
+use App\Repository\Eloquent\PatientRepository;
 use Illuminate\Http\Request;
+use Throwable;
 
 class PatientController extends Controller
 {
+    protected $repository;
+
+    public function __construct(PatientRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
-     * Display a listing of the resource.
+     * get list of all the patients.
      *
-     * @return \Illuminate\Http\Response
+     * @param $request: Illuminate\Http\Request
+     *
+     * @return json response
      */
-    public function index()
+    public function index(Request $request)
+    {
+        $patients = $this->repository->paginate($request);
+
+        return response()->json(['patients' => $patients]);
+    }
+
+    /**
+     * store patient data to database table.
+     *
+     * @param $request: App\Http\Requests\CreatepatientRequest
+     *
+     * @return json response
+     */
+    public function store(StorePatient $request)
+    {
+        try {
+            $patient = $this->repository->store($request);
+
+            return response()->json(['patient' => $patient]);
+        } catch (Throwable $e) {
+            return response()->json(['message' => $e->getMessage()], $e->getStatus());
+        }
+    }
+
+    /**
+     * update patient data to database table.
+     *
+     * @param $request: App\Http\Requests\UpdatepatientRequest
+     * @param mixed $id
+     *
+     * @return json response
+     */
+    public function update($id)
     {
     }
 
     /**
-     * Show the form for creating a new resource.
+     * get single patient by id.
      *
-     * @return \Illuminate\Http\Response
+     * @param int $id: integer patient id
+     *
+     * @return json response
      */
-    public function create()
+    public function show($id)
     {
+        try {
+            $patient = $this->repository->show($id);
+
+            return response()->json(['patient' => $patient]);
+        } catch (Throwable $e) {
+            return response()->json(['message' => $e->getMessage()], $e->getStatus());
+        }
     }
 
     /**
-     * Store a newly created resource in storage.
+     * delete patient by id.
      *
-     * @return \Illuminate\Http\Response
+     * @param int $id: integer patient id
+     *
+     * @return json response
      */
-    public function store(Request $request)
+    public function delete($id)
     {
-    }
+        try {
+            $this->repository->delete($id);
 
-    /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Patient $patient)
-    {
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Patient $patient)
-    {
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Patient $patient)
-    {
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Patient $patient)
-    {
+            return response()->json([], 204);
+        } catch (Throwable $e) {
+            return response()->json(['message' => $e->getMessage()], $e->getStatus());
+        }
     }
 }

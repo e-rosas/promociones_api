@@ -13,7 +13,7 @@ class StorePatient extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -28,6 +28,7 @@ class StorePatient extends FormRequest
             'birth_date' => 'required|date|after:1900-01-01',
             'phone_number' => 'required|max:255',
             'email' => 'required|email|max:255',
+            'insured' => 'required|boolean',
         ];
     }
 }

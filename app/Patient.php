@@ -9,7 +9,6 @@ class Patient extends Model
     public $dates = ['birth_date'];
     protected $fillable = [
         'name',
-        'status',
         'birth_date',
         'phone_number',
         'email',
@@ -23,5 +22,6 @@ class Patient extends Model
         'phone_number' => 'string',
         'email' => 'string',
         'insured' => 'boolean',
+        'status' => 'string',
     ];
 }
