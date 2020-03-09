@@ -27,7 +27,7 @@ class StorePatient extends FormRequest
             'name' => 'required|min:6|max:255',
             'birth_date' => 'required|date|after:1900-01-01',
             'phone_number' => 'required|max:255',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:180',
             'insured' => 'required|boolean',
         ];
     }
