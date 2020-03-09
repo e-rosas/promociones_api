@@ -16,7 +16,7 @@ class CreatePatientsTable extends Migration
             $table->string('name');
             $table->date('birth_date');
             $table->string('phone_number')->nullable();
-            $table->string('email')->nullable();
+            $table->string('email', 180)->unique();
             $table->boolean('insured');
             $table->string('status')->default('AVAILABLE');
             $table->timestamps();
