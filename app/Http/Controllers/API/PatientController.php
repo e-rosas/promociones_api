@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePatient;
+use App\Http\Resources\PatientResource;
 use App\Patient;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,9 @@ class PatientController extends Controller
      */
     public function index()
     {
+        $patients = Patient::all();
+
+        return PatientResource::collection($patients);
     }
 
     /**

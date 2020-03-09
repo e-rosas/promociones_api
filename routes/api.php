@@ -14,3 +14,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('register', 'API\PatientController@store');
+Route::get('patients', 'API\PatientController@index');
