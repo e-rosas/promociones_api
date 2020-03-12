@@ -6,11 +6,13 @@ use Faker\Generator as Faker;
 
 $factory->define(Patient::class, function (Faker $faker) {
     return [
-        'last_name' => $faker->lastName,
         'name' => $faker->firstName,
         'birth_date' => $faker->dateTimeThisCentury,
         'status' => 'AVAILABLE',
         'phone_number' => $faker->phoneNumber,
-        'email' => $faker->email,
+        'email' => $faker->freeEmail,
+        'insured' => $faker->boolean,
+        'city' => $faker->city,
+        'relatives' => $faker->firstName + $faker->lastName,
     ];
 });

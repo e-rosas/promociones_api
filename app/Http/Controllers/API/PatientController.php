@@ -6,20 +6,32 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePatient;
 use App\Http\Resources\PatientResource;
 use App\Patient;
+use App\Repository\Eloquent\PatientRepository;
 use Illuminate\Http\Request;
+use Throwable;
 
 class PatientController extends Controller
 {
+    protected $repository;
+
+    public function __construct(PatientRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $patients = Patient::all();
+        $patients = $this->repository->paginate($request);
 
-        return PatientResource::collection($patients);
+        return response()->json(['patients' => $patients]);
+        /* $patients = Patient::all();
+
+        return PatientResource::collection($patients); */
     }
 
     /**
@@ -31,15 +43,22 @@ class PatientController extends Controller
      */
     public function store(StorePatient $request)
     {
+        try {
+            $patient = $this->repository->store($request);
+
+            return response()->json(['patient' => $patient]);
+        } catch (Throwable $e) {
+            return response()->json(['message' => $e->getMessage()]);
+        }
         // Retrieve the validated input data...
-        $validated = $request->validated();
+        /* $validated = $request->validated();
         Patient::create($validated);
         $response = [
             'success' => true,
             'message' => 'Registered successfully.',
         ];
 
-        return response()->json($response, 200);
+        return response()->json($response, 200); */
     }
 
     /**

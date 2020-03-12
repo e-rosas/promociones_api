@@ -44,7 +44,7 @@ class PatientController extends Controller
 
             return response()->json(['patient' => $patient]);
         } catch (Throwable $e) {
-            return response()->json(['message' => $e->getMessage()], $e->getStatus());
+            return response()->json(['message' => $e->getMessage()]);
         }
     }
 
@@ -74,7 +74,7 @@ class PatientController extends Controller
 
             return response()->json(['patient' => $patient]);
         } catch (Throwable $e) {
-            return response()->json(['message' => $e->getMessage()], $e->getStatus());
+            return response()->json(['message' => $e->getMessage()]);
         }
     }
 
@@ -92,7 +92,7 @@ class PatientController extends Controller
 
             return response()->json([], 204);
         } catch (Throwable $e) {
-            return response()->json(['message' => $e->getMessage()], $e->getStatus());
+            return response()->json(['message' => $e->getMessage()]);
         }
     }
 }

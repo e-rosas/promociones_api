@@ -14,6 +14,7 @@ class Patient extends Model
         'email',
         'insured',
         'status',
+        'city',
         'relatives',
     ];
     protected $casts = [
@@ -23,6 +24,7 @@ class Patient extends Model
         'phone_number' => 'string',
         'email' => 'string',
         'insured' => 'boolean',
+        'city' => 'string',
         'status' => 'string',
         'relatives' => 'string',
     ];
