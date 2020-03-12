@@ -19,6 +19,7 @@ class CreatePatientsTable extends Migration
             $table->string('email', 180)->unique();
             $table->boolean('insured');
             $table->string('status')->default('AVAILABLE');
+            $table->text('relatives')->nullable();
             $table->timestamps();
         });
     }

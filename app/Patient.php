@@ -14,6 +14,7 @@ class Patient extends Model
         'email',
         'insured',
         'status',
+        'relatives',
     ];
     protected $casts = [
         'id' => 'integer',
@@ -23,5 +24,6 @@ class Patient extends Model
         'email' => 'string',
         'insured' => 'boolean',
         'status' => 'string',
+        'relatives' => 'string',
     ];
 }
