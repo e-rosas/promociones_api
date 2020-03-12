@@ -13,6 +13,6 @@ $factory->define(Patient::class, function (Faker $faker) {
         'email' => $faker->freeEmail,
         'insured' => $faker->boolean,
         'city' => $faker->city,
-        'relatives' => $faker->firstName + $faker->lastName,
+        'relatives' => $faker->firstName.' '.$faker->lastName,
     ];
 });
